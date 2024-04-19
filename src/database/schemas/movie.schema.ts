@@ -19,7 +19,7 @@ export class Movie {
     producer: string;
 
     @Prop({ required: true })
-    realese_date: Date;
+    release_date: Date;
 }
 
 export const MovieSchema = SchemaFactory.createForClass(Movie);

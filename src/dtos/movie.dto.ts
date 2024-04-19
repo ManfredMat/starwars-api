@@ -5,7 +5,7 @@ export type MovieDto = {
     episode_id:Number;
     director:string;
     producer:string;
-    realese_date:Date;
+    release_date:Date;
 }
 
 export type UpdateDto = {
@@ -17,7 +17,7 @@ export type UpdateMovieDto = {
     episode_id?:Number;
     director?:string;
     producer?:string;
-    realese_date?:Date;
+    release_date?:Date;
 }
 export type DeleteMovieDto = {
     title:string;

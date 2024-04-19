@@ -37,11 +37,11 @@ export class MoviesService {
         let aux =[];
         for(let i = 0 ; outsideMovies?.length > i; i++){
             aux.push({
-                title:outsideMovies[0]?.title || 'Missing information',
-                episode_id:outsideMovies[0]?.episode_id || 'Missing information' ,
-                director:outsideMovies[0]?.director || 'Missing information',
-                producer:outsideMovies[0]?.producer || 'Missing information',
-                realese_date:outsideMovies[0]?.realese_date|| 'Missing information'
+                title:outsideMovies[i]?.title || 'Missing information',
+                episode_id:outsideMovies[i]?.episode_id || 'Missing information' ,
+                director:outsideMovies[i]?.director || 'Missing information',
+                producer:outsideMovies[i]?.producer || 'Missing information',
+                release_date:outsideMovies[i]?.release_date|| 'Missing information'
             })
         }
         const ownMovies = await this.movieModel.find();
