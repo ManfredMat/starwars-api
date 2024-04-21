@@ -1,3 +1,5 @@
+import { Role } from "./role.dto";
+
 export type SignInDto = { 
     username:string;
     password:string;
@@ -6,5 +8,5 @@ export type SignInDto = {
 export type RegisterUserDto = {
     username:string;
     password:string;
-    isAdmin?:boolean;
+    role?:Role[];
 }

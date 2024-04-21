@@ -6,6 +6,7 @@ import { RegisterUserDto } from 'src/dtos/request_body.dto';
 import { UserDto } from 'src/dtos/user.dto';
 import {v4 as uuidv4} from 'uuid';
 import * as bcrypt from 'bcrypt'
+import { Role } from 'src/dtos/role.dto';
 
 
 @Injectable()
@@ -25,7 +26,7 @@ export class UsersService {
                 id:uuidv4(), 
                 password: hashPass , 
                 username:userdata.username , 
-                isAdmin: userdata.isAdmin ? userdata.isAdmin : false}
+                role: userdata.role ? userdata.role : [Role.REGULAR]}
             const createdUser =  new this.userModel(protectedData); 
             createdUser.save()
             return {status:'OK' , message : 'User created succesfully'}
