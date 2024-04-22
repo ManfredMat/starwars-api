@@ -1,5 +1,4 @@
-import { UUID } from "crypto"
-import { Role } from "./role.dto";
+import { Role } from "../enum/role.enum";
 
 export type UserDto = {
     id:string;

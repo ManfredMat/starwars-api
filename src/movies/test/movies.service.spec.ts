@@ -1,7 +1,7 @@
 import { ConflictException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { MoviesService } from '../movies.service';
-import { Movie } from '../../database/schemas/movie.schema';
+import { Movie } from '../../domain/database/schemas/movie.schema';
 
 describe('MoviesService', () => {
   let moviesService: MoviesService;

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { DeleteMovieDto, MovieDto, UpdateDto } from 'src/dtos/movie.dto';
-import { Role } from 'src/dtos/role.dto';
+import { DeleteMovieDto, MovieDto, UpdateDto } from 'src/domain/dto/movie.dto';
+import { Role } from 'src/domain/enum/role.enum';
 import { Roles } from 'src/auth/role/role.decorator';
 import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { RoleGuard } from 'src/auth/role/role.guard';

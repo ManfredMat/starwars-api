@@ -1,4 +1,4 @@
-import { Role } from "./role.dto";
+import { Role } from "../enum/role.enum";
 
 export type SignInDto = { 
     username:string;

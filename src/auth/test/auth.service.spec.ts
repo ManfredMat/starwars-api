@@ -1,9 +1,9 @@
 import { UsersService } from "../../users/users.service";
 import { AuthService } from "../auth.service"
 import { Model } from "mongoose";
-import { User } from "../../database/schemas/users.schema";
+import { User } from "../../domain/database/schemas/users.schema";
 import { JwtService } from "@nestjs/jwt";
-import { Role } from "../../dtos/role.dto";
+import { Role } from "../../domain/enum/role.enum";
 import * as brcypt from 'bcrypt';
 
 describe('AuthService' , ()=>{

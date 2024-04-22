@@ -1,12 +1,12 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../database/schemas/users.schema';
-import { RegisterUserDto } from '../dtos/request_body.dto';
-import { UserDto } from '../dtos/user.dto';
+import { User } from '../domain/database/schemas/users.schema';
+import { RegisterUserDto } from '../domain/dto/requestBody.dto';
+import { UserDto } from '../domain/dto/user.dto';
 import {v4 as uuidv4} from 'uuid';
 import * as bcrypt from 'bcrypt'
-import { Role } from '../dtos/role.dto';
+import { Role } from '../domain/enum/role.enum';
 
 
 @Injectable()

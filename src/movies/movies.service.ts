@@ -4,8 +4,8 @@ import axios from 'axios';
 import { Agent } from 'https';
 import { Model } from 'mongoose';
 import { STARWARS_API } from 'src/config';
-import { Movie } from 'src/database/schemas/movie.schema';
-import { MovieDto, UpdateDto, UpdateMovieDto } from 'src/dtos/movie.dto';
+import { Movie } from 'src/domain/database/schemas/movie.schema';
+import { MovieDto, UpdateDto, UpdateMovieDto } from 'src/domain/dto/movie.dto';
 
 @Injectable()
 export class MoviesService {

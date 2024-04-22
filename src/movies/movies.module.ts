@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Movie, MovieSchema } from 'src/database/schemas/movie.schema';
+import { Movie, MovieSchema } from 'src/domain/database/schemas/movie.schema';
 
 @Module({
   imports:[MongooseModule.forFeature([{name:Movie.name , schema:MovieSchema }])],

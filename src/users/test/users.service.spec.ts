@@ -1,11 +1,11 @@
 import { UsersService } from '../users.service';
-import { RegisterUserDto } from '../../dtos/request_body.dto';
-import { Role } from '../../dtos/role.dto';
+import { RegisterUserDto } from '../../domain/dto/requestBody.dto';
+import { Role } from '../../domain/enum/role.enum';
 import { Model } from 'mongoose';
-import { User } from 'src/database/schemas/users.schema';
+import { User } from 'src/domain/database/schemas/users.schema';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-import { UserDto } from 'src/dtos/user.dto';
+import { UserDto } from 'src/domain/dto/user.dto';
 
 describe('UsersController', () => {
   let usersService: UsersService;
