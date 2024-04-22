@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import axios from 'axios';
+import { Agent } from 'https';
 import { Model } from 'mongoose';
 import { STARWARS_API } from 'src/config';
 import { Movie } from 'src/database/schemas/movie.schema';
@@ -11,6 +12,14 @@ export class MoviesService {
     constructor(@InjectModel(Movie.name) private movieModel : Model<Movie>){}
 
     async createMovie(moviedata:MovieDto):Promise<Movie>{
+        
+        const externalMovies = await this.getExternalMovies();
+        const checkMovie = await this.movieModel.findOne({episode_id:moviedata.episode_id});
+
+        if(!!checkMovie || externalMovies.length >= moviedata.episode_id.valueOf()){
+            throw new ConflictException({status:'ERROR' , message:'Episode number has already been used.'});
+        }
+
         const createdMovie = new this.movieModel(moviedata);
         return createdMovie.save()
     }
@@ -33,7 +42,7 @@ export class MoviesService {
     }
 
     async getAllMovies():Promise<any[]>{
-        const outsideMovies : any[] = (await axios.get(STARWARS_API)).data?.results;
+        const outsideMovies : any[] = await this.getExternalMovies();
         let aux =[];
         for(let i = 0 ; outsideMovies?.length > i; i++){
             aux.push({
@@ -48,5 +57,10 @@ export class MoviesService {
 
         return ownMovies.concat(aux)
 
+    }
+
+    async getExternalMovies():Promise<any[]>{
+        const httpsAgent = new Agent({rejectUnauthorized:false});
+        return (await axios.get(STARWARS_API , {httpsAgent:httpsAgent})).data?.results;
     }
 }
