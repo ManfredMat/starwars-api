@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { DeleteMovieDto, MovieDto, UpdateDto } from '../domain/dto/movie.dto';
 import { Role } from '../domain/enum/role.enum';
@@ -14,6 +14,11 @@ export class MoviesController {
     @Get('all')
     async getAllMovies(){
         return await this.moviesService.getAllMovies();
+    }
+    @UseGuards(AuthGuard)
+    @Get(':id')
+    async getById(@Param('id')id:string){
+        return await this.moviesService.getById(id);
     }
     @UseGuards(AuthGuard , RoleGuard)
     @Roles(Role.ADMIN)
@@ -33,7 +38,7 @@ export class MoviesController {
     @Roles(Role.ADMIN)
     @Delete('delete')
     async deleteMovie(@Body()data:DeleteMovieDto){
-        return await this.moviesService.deleteMovie(data.title);
+        return await this.moviesService.deleteMovie(data.episode_id);
     }
     
     

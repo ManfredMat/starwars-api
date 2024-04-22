@@ -7,7 +7,7 @@ export type MovieDto = {
 }
 
 export type UpdateDto = {
-    title:string;
+    episode_id:Number;
     update:UpdateMovieDto
 }
 export type UpdateMovieDto = {
@@ -18,5 +18,5 @@ export type UpdateMovieDto = {
     release_date?:Date;
 }
 export type DeleteMovieDto = {
-    title:string;
+    episode_id:Number;
 }
