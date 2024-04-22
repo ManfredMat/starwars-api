@@ -27,7 +27,7 @@ export class MoviesService {
         try{
             await this.movieModel.deleteOne({episode_id:episode_id});
         }catch(e){
-            throw new Error(e)
+            throw new ConflictException(e)
         }
         return {status:'OK' , message:'Movie deleted succesfully'}
     }
@@ -35,7 +35,7 @@ export class MoviesService {
         try{
             await this.movieModel.findOneAndUpdate({episode_id:data.episode_id} , data.update , {new:true} )
         }catch(e){
-            throw new Error(e)
+            throw new ConflictException(e)
         }
         return {status:'OK' , message:'Movie updated succesfully'}
     }
@@ -74,9 +74,12 @@ export class MoviesService {
         }
         try{
             const movie = await this.movieModel.findOne({episode_id:idMovie})
+            if(!movie){
+                throw new ConflictException('Movie doesnt exist')
+            }
             return movie
         }catch(e){
-            throw new Error(e)
+            throw new ConflictException(e)
         }
     }
 
