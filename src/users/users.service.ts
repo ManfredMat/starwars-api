@@ -35,9 +35,9 @@ export class UsersService {
         }
     }
 
-    async findOne(username:string):Promise<UserDto>{
+    async findOne(username:string):Promise<UserDto | null>{
         const data = await this.userModel.find({username:username})
-        return data[0]
+        return data.length > 0 ? data[0] : null;
     }
 
 
