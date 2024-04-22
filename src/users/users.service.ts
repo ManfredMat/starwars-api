@@ -1,16 +1,17 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from 'src/database/schemas/users.schema';
-import { RegisterUserDto } from 'src/dtos/request_body.dto';
-import { UserDto } from 'src/dtos/user.dto';
+import { User } from '../database/schemas/users.schema';
+import { RegisterUserDto } from '../dtos/request_body.dto';
+import { UserDto } from '../dtos/user.dto';
 import {v4 as uuidv4} from 'uuid';
 import * as bcrypt from 'bcrypt'
-import { Role } from 'src/dtos/role.dto';
+import { Role } from '../dtos/role.dto';
 
 
 @Injectable()
 export class UsersService {
+    
     constructor(@InjectModel(User.name) private userModel : Model<User>){}
 
     async createUser(userdata:RegisterUserDto) : Promise<object> {
@@ -27,8 +28,7 @@ export class UsersService {
                 password: hashPass , 
                 username:userdata.username , 
                 role: userdata.role ? userdata.role : [Role.REGULAR]}
-            const createdUser =  new this.userModel(protectedData); 
-            createdUser.save()
+            await this.userModel.create(protectedData);
             return {status:'OK' , message : 'User created succesfully'}
         }catch(e){
             return {status:'ERROR' , message : e }

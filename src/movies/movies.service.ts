@@ -60,7 +60,7 @@ export class MoviesService {
     }
 
     async getExternalMovies():Promise<any[]>{
-        const httpsAgent = new Agent({rejectUnauthorized:false});
+        const httpsAgent = new Agent({rejectUnauthorized:false}); // EL CERTIFICADO DE LA API SE VENCIO DURANTE LAS PRUEBAS POR ESO ESTA LINEA
         return (await axios.get(STARWARS_API , {httpsAgent:httpsAgent})).data?.results;
     }
 }
