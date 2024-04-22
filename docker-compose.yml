@@ -1,0 +1,12 @@
+version: "3"
+services:
+  starwars-api:
+    image: starwars-api:1.0.0
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGO_STRING_CONNECTION=mongodb://root:****@*****/?authSource=admin
+      - JWT_SECRET=secret
+      - STARWARS_API=http://swapi.dev/api/films/

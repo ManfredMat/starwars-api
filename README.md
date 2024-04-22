@@ -1,73 +1,116 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Star Wars API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Ejecutar en local
+Para ejecutar este codigo en local necesitaremos contar con  git , nodejs 20.12.2 (Recomendado) y mongodb.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### 1. Clonar el repositorio
+desde una consola nos ubicaremos en la carpeta donde queramos clonar nuestro proyecto y escribiremos `git clone git@github.com:ManfredMat/starwars-api.git`
 
-## Description
+### 2. Crear archivo .env
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+para el correcto funcionamiento de nuestra API deberemos declara las siguientes variables de entorno:
+-`PORT= Puerto (Es opcional ya que por defecto ira al 3000)`
 
-## Installation
+-`MONGO_STRING_CONNECTION= String de coneccion a nuestra mongodb`
 
-```bash
-$ yarn install
-```
+-`JWT_SECRET= Aqui escribiremos un secret que usaremos para el encodeo del jwt , se recomienda usar alguna herramienta que genere algun secret aleatorio`
 
-## Running the app
+-`STARWARS_API=http://swapi.dev/api/films/`
 
-```bash
-# development
-$ yarn run start
+este archivo lo crearemos en la carpeta root del proyecto donde se encuentra tambien un archivo .env.example a modo de ejemplo.
 
-# watch mode
-$ yarn run start:dev
+### 3. Instalamos dependencias
 
-# production mode
-$ yarn run start:prod
-```
+para instalar las dependencias usaremos en nuestra consola el comando `yarn`.
 
-## Test
+### 4. Correr en local
 
-```bash
-# unit tests
-$ yarn run test
+para inicializar ya el proyecto y comenzar a probar los endpoints debemos ejecutar por consola el comando `yarn start`
 
-# e2e tests
-$ yarn run test:e2e
+## Endpoints
 
-# test coverage
-$ yarn run test:cov
-```
+### GET (/) http://localhost:{$port}/
+es un health check que en caso de estar levantado el servicio nos respondera con un PONG.
 
-## Support
+### POST (/) http://localhost:{$port}/auth/login
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+usaremos este endpoint para loguearnos en la api. este nos devolvera un JSON de la siguiente manera :
+`{token:${jwt token}}`
 
-## Stay in touch
+body :
+`{
+    "username":"USUARIO",
+    "password":"PASSWORD"
+}`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### POST (/) http://localhost:{$port}/user/register
 
-## License
+Este endpoint esta destinado a la creacion de usuarios. 
+este nos devolvera un JSON de la siguiente manera :
+`{status:'OK' , message : 'User created succesfully'}`
 
-Nest is [MIT licensed](LICENSE).
+body :
+`{
+    "username":"USUARIO",
+    "password":"PASSWORD",
+    "role":["REGULAR"] o ["ADMIN"]
+}`
+
+el campo role es opcional, de no incluirlo el usuario se generara como uno regular.
+
+### GET (/) http://localhost:{$port}/movies/all
+nos devolvera un listado de peliculas.
+este request precisa autorizacion por ende debemos enviar por headers el token de seguridad obtenido del login.
+
+### GET (/) http://localhost:{$port}/movies/:id
+nos devolvera una pelicula especifica segun su numero de episodio.
+este request precisa autorizacion por ende debemos enviar por headers el token de seguridad obtenido del login.
+
+### POST (/) http://localhost:{$port}/movies/new
+
+Este endpoint esta destinado a la creacion de peliculas. 
+en caso de que se cree de manera correcta nos devolvera un json con la informacion de la pelicula.
+
+body :
+`{
+    "title": "la siesta de la fuerza",
+    "episode_id": 8,
+    "director": "jorgito lucas",
+    "producer": "warner sister",
+    "release_date": "1980-05-17T00:00:00.000Z"
+}`
+
+este request precisa autorizacion por ende debemos enviar por headers el token de seguridad obtenido del login y solo podran consumirlo usuarios que sean ADMIN.
+
+### POST (/) http://localhost:{$port}/movies/update
+
+Este endpoint esta destinado a la modificacion de peliculas. 
+en caso de que se  modifique de manera correcta nos devolvera un json:
+`{status:'OK' , message:'Movie updated succesfully'}`
+
+body :
+`{
+    "episode_id":Number;
+    "update":{
+        title?:string;
+        episode_id?:Number;
+        director?:string;
+        producer?:string;
+        release_date?:Date;
+        }
+}`
+
+este request precisa autorizacion por ende debemos enviar por headers el token de seguridad obtenido del login y solo podran consumirlo usuarios que sean ADMIN.
+
+### DELETE (/) http://localhost:{$port}/movies/delete
+
+Este endpoint esta destinado a la eliminacion de peliculas. 
+en caso de que se borre de manera correcta nos devolvera un json:
+`{status:'OK' , message:'Movie deleted succesfully'}`
+
+body :
+`{
+    episode_id:Number;
+}`
+
+este request precisa autorizacion por ende debemos enviar por headers el token de seguridad obtenido del login y solo podran consumirlo usuarios que sean ADMIN.
