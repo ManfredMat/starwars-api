@@ -37,9 +37,6 @@ describe('UsersController', () => {
 
      
       const result = await usersService.createUser(userData);
-
-      console.log(result)
-
     
       expect(result).toEqual({ status: 'OK', message: 'User created succesfully' });
     });

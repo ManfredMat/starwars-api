@@ -3,9 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import axios from 'axios';
 import { Agent } from 'https';
 import { Model } from 'mongoose';
-import { STARWARS_API } from 'src/config';
-import { Movie } from 'src/domain/database/schemas/movie.schema';
-import { MovieDto, UpdateDto, UpdateMovieDto } from 'src/domain/dto/movie.dto';
+import { STARWARS_API } from '../config/index';
+import { Movie } from '../domain/database/schemas/movie.schema';
+import { MovieDto, UpdateDto, UpdateMovieDto } from '../domain/dto/movie.dto';
 
 @Injectable()
 export class MoviesService {
@@ -20,8 +20,7 @@ export class MoviesService {
             throw new ConflictException({status:'ERROR' , message:'Episode number has already been used.'});
         }
 
-        const createdMovie = new this.movieModel(moviedata);
-        return createdMovie.save()
+        return await this.movieModel.create(moviedata)
     }
 
     async deleteMovie(title:string):Promise<object>{

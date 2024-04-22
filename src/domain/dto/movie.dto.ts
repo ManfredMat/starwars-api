@@ -1,5 +1,3 @@
-import { Date } from "mongoose";
-
 export type MovieDto = {
     title:string;
     episode_id:Number;
