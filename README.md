@@ -43,7 +43,7 @@ body :
     "password":"PASSWORD"
 }`
 
-### POST (/) http://localhost:{$port}/user/register
+### POST (/) http://localhost:{$port}/users/register
 
 Este endpoint esta destinado a la creacion de usuarios. 
 este nos devolvera un JSON de la siguiente manera :
