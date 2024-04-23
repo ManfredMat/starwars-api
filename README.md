@@ -1,5 +1,9 @@
 # Star Wars API
 
+## Deploy
+### URL
+La url a consumir para el deploy es : `https://starwars-api-kubh.onrender.com` para las reques seguir los ejemplos detallados abajo.
+
 ## Ejecutar en local
 Para ejecutar este codigo en local necesitaremos contar con  git , nodejs 20.12.2 (Recomendado) y mongodb.
 
@@ -43,7 +47,7 @@ body :
     "password":"PASSWORD"
 }`
 
-### POST (/) http://localhost:{$port}/user/register
+### POST (/) http://localhost:{$port}/users/register
 
 Este endpoint esta destinado a la creacion de usuarios. 
 este nos devolvera un JSON de la siguiente manera :
