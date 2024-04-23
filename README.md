@@ -19,6 +19,8 @@ para el correcto funcionamiento de nuestra API deberemos declara las siguientes 
 
 -`JWT_SECRET= Aqui escribiremos un secret que usaremos para el encodeo del jwt , se recomienda usar alguna herramienta que genere algun secret aleatorio`
 
+-`JWT_TIME= esta variable es opcional ya que el token tendra una hora por defecto pero si se desea podemos modificar su vencimiento declarando cuando queremos que lo hagaeg: 1s, 1m ,  1h , 1d`
+
 -`STARWARS_API=http://swapi.dev/api/films/`
 
 este archivo lo crearemos en la carpeta root del proyecto donde se encuentra tambien un archivo .env.example a modo de ejemplo.
